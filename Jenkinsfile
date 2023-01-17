@@ -26,7 +26,7 @@ pipeline{
                 // sh "ls"
                 // sh "docker bulid -t test-app ."
                 // sh "ls"
-                }
+                // }
             }
         }
     //     }
