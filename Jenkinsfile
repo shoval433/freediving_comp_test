@@ -21,7 +21,7 @@ pipeline{
             steps{
                 echo "===============================================Executing Building for all==============================================="
                 sh "ls"
-                sh"docker compose down  "
+                sh"docker-compose down  "
                 sh "docker-compose build --no-cache "
                 sh "docker-compose up -d my_db"
                 sh "sleep 5"
