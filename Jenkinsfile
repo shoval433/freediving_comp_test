@@ -20,6 +20,7 @@ pipeline{
         stage("Building for all"){
             steps{
                 echo "===============================================Executing Building for all==============================================="
+                sh "ls"
                 dir("/app"){
                 sh "ls"
                 sh "docker bulid -t test-app ."
