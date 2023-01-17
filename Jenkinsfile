@@ -22,9 +22,9 @@ pipeline{
                 echo "===============================================Executing Building for all==============================================="
                 sh "ls"
                 sh "docker-compose build "
-                sh "docker-compose up -d --bulid my_db "
+                sh "docker-compose up -d --bulid my_db --force-recreate "
                 sh "sleep 5"
-                sh "docker-compose up -d --bulid app_comp "
+                sh "docker-compose up -d --bulid app_comp --force-recreate "
                 // dir("app"){
                 // sh "ls"
                 // sh "docker bulid -t test-app ."
