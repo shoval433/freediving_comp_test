@@ -17,11 +17,15 @@ pipeline{
             }
         }
     
-    //     stage("Building for all"){
-    //         steps{
-    //             echo "===============================================Executing Building for all==============================================="
-    //             sh "mvn verify"
-    //         }
+        stage("Building for all"){
+            steps{
+                echo "===============================================Executing Building for all==============================================="
+                dir("/app"){
+                sh "ls"
+                sh "docker bulid -t test-app ."
+                sh "ls"
+                }
+            }
 
     //     }
     //     stage("is main"){
