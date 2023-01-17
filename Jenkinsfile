@@ -26,7 +26,7 @@ pipeline{
                 sh "ls"
                 }
             }
-
+        }
     //     }
     //     stage("is main"){
     //         when{
