@@ -16,6 +16,7 @@ pipeline{
               
             }
         }
+    
     //     stage("Building for all"){
     //         steps{
     //             echo "===============================================Executing Building for all==============================================="
@@ -88,7 +89,7 @@ pipeline{
     //         }
            
     //     }
-    // }
+    }
     post{
 
         success{
