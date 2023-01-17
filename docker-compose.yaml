@@ -8,7 +8,9 @@ services:
       - "80:5000"
     depends_on:
       - my_db
-        # condition: service_healthy 
+    # depends_on:
+    #   my_db:
+    #     condition: service_healthy 
 
   my_db:
     image: mongo:4.2
@@ -21,11 +23,11 @@ services:
       - "27017:27017" 
     volumes:
       - data:/data/db
-    healthcheck:
-      test: ["CMD", "mongo", "--eval","db.runCommand({ping:1}).ok"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+    # healthcheck:
+    #   test: ["CMD", "mongo", "--eval","db.runCommand({ping:1}).ok"]
+    #   interval: 10s
+    #   timeout: 5s
+    #   retries: 5
 
 
 volumes:
