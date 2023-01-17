@@ -23,7 +23,7 @@ pipeline{
                 sh "ls"
                 sh"docker-compose down"
                 sh "docker-compose build --no-cache "
-                sh "docker-compose up"
+                sh "docker-compose up -d"
                 // sh "docker-compose up -d my_db"
                 // sh "sleep 10"
                 // sh "docker-compose up -d app_comp  "
