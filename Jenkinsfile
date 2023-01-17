@@ -21,7 +21,7 @@ pipeline{
             steps{
                 echo "===============================================Executing Building for all==============================================="
                 sh "ls"
-                dir("/app"){
+                dir("app"){
                 sh "ls"
                 sh "docker bulid -t test-app ."
                 sh "ls"
