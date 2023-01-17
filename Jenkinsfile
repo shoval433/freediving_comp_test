@@ -21,10 +21,11 @@ pipeline{
             steps{
                 echo "===============================================Executing Building for all==============================================="
                 sh "ls"
-                dir("app"){
-                sh "ls"
-                sh "docker bulid -t test-app ."
-                sh "ls"
+                sh "docker-compose bulid && docker-compose up"
+                // dir("app"){
+                // sh "ls"
+                // sh "docker bulid -t test-app ."
+                // sh "ls"
                 }
             }
         }
