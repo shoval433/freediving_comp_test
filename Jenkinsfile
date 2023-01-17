@@ -24,7 +24,7 @@ pipeline{
                 sh"docker-compose down  "
                 sh "docker-compose build --no-cache "
                 sh "docker-compose up -d my_db"
-                sh "sleep 5"
+                sh "sleep 10"
                 sh "docker-compose up -d app_comp  "
                 // dir("app"){
                 // sh "ls"
