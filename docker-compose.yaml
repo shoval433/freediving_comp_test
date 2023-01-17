@@ -7,7 +7,7 @@ services:
     ports:
       - "80:5000"
     depends_on:
-      my_db:
+      - my_db:
         condition: service_healthy 
 
   my_db:
