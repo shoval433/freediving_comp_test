@@ -44,13 +44,35 @@ def update_comp(comp):
     ,"NR":NR
     ,"gender":gender
     }
-    
     comp_db=db.get_database(comp)
-    myquery = { "_id":int(_id) }
-    newvalues = { '$set':  doc  }
+    for key, value in doc.items():
+        if value is None or value == "":
+            return (f"{key} is null")
+            
+    if not list(comp_db.diver.find({"_id":_id})) :
+        return "diver not here" ,404
+
+    
+    myquery = { "_id":_id }
+    newvalues = { "\$set":  doc  }
 
     comp_db.diver.update_one(myquery,newvalues)
+
+   
+   
     return json_util.dumps(list(comp_db.diver.find({"_id":_id})))
+
+@app.delete('/<comp>/<id>')
+def del_diver(comp,id):
+    comp_db=db.get_database(comp)
+    myquery = { "_id": id }
+    if not list(comp_db.diver.find({"_id": id})) :
+        return "diver not here to delete" ,404
+    comp_db.diver.delete_one(myquery)
+    return "diver was deleted"
+
+
+
     
 @app.post('/<comp>')
 def add_comp(comp):
@@ -76,11 +98,17 @@ def add_comp(comp):
     }
     
     comp_db=db.get_database(comp)
+
+    for key, value in doc.items():
+        if value is None or value == "":
+            return (f"{key} is null")
     try:
         comp_db.diver.insert_one(doc)
         return json_util.dumps(list(comp_db.diver.find({"_id":_id})))
     except:
-        return "diver is on the list"
+        return "diver is on the list" ,404
+
+
 
 @app.get('/<comp>/id/<id>')
 def get_diver_id(comp,id):
