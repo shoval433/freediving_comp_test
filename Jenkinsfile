@@ -21,10 +21,11 @@ pipeline{
             steps{
                 echo "===============================================Executing Building for all==============================================="
                 sh "ls"
-                sh "docker-compose build "
-                sh "docker-compose up -d --bulid my_db"
+                sh"docker compose down  "
+                sh "docker-compose build --no-cache "
+                sh "docker-compose up -d my_db"
                 sh "sleep 5"
-                sh "docker-compose up -d --bulid app_comp  "
+                sh "docker-compose up -d app_comp  "
                 // dir("app"){
                 // sh "ls"
                 // sh "docker bulid -t test-app ."
