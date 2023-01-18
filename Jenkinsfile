@@ -48,7 +48,7 @@ pipeline{
                 echo "===============================================Executing e2e test==============================================="
                 script{
                     dir("test"){
-                        sh "python3 test.py"
+                        sh "./testing.sh"
                     }
 
                 }
