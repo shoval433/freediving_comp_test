@@ -24,14 +24,12 @@ pipeline{
                 sh"docker-compose down"
                 sh "docker-compose build --no-cache "
                 sh "docker-compose up -d"
-                // sh "docker-compose up -d my_db"
-                // sh "sleep 10"
-                // sh "docker-compose up -d app_comp  "
-                // dir("app"){
-                // sh "ls"
-                // sh "docker bulid -t test-app ."
-                // sh "ls"
-                // }
+                
+            }
+        }
+        stage("test build"){
+            steps{
+                
             }
         }
     //     }
