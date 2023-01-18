@@ -95,11 +95,12 @@ pipeline{
                 
                 script{
                 withCredentials([[
+                                $class: 'AmazonWebServicesCredentialsBinding'
                                 credentialsId: 'aws_shoval',
                                 accessKeyVaeiable: 'AWS_ACCESS_KET_ID',
                                 secretKeyVariable: 'AWS_SECRET_KEY_ID'
                                 ]]) {
-                                sh "docker tag shoval_private_ecr shoval_private_ecr"
+                                sh "docker tag freedive_comp_main-app_comp shoval_private_ecr"
                             docker.withRegistry("http://644435390668.dkr.ecr.eu-west-3.amazonaws.com/shoval_private_ecr", "ecr:eu-west-3:644435390668") {
                             docker.image("shoval_private_ecr").push()
                             }
