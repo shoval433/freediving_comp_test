@@ -30,7 +30,7 @@ pipeline{
         stage("test build"){
             steps{
                 script{
-                    sh "curl http://app_comp:5001"
+                    sh "curl http://43.0.20.203:5001"
                 }
                 
             }
