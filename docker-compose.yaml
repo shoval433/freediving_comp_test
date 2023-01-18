@@ -1,11 +1,19 @@
 version: '3'
 services:
+  proxy:
+      build: ./nginx2
+      ports:
+          - "80:80"
+      depends_on:
+        - app_comp
+    
+  
   app_comp:
     build: ./app/
     # environment:
     #   APP_PORT: "80"
-    ports:
-      - "5001:5000"
+    # ports:
+    #   - "5001:5000"
     depends_on:
       my_db:
         condition: service_healthy 
