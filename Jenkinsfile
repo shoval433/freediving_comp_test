@@ -54,55 +54,55 @@ pipeline{
                 }
             }
         }
-    //     //
-    //     stage("calc tag"){
-    //         when{
-    //             expression{
-    //                 return GIT_BRANCH.contains('release/')
-    //             }
-    //         }
-    //         steps{
-    //             echo "===============================================Executing calc tag==============================================="
-    //             script{
-    //                 Ver_Br=sh (script: "echo $GIT_BRANCH | cut -d '/' -f2",
-    //                 returnStdout: true).trim()
-    //                 echo "${Ver_Br}"
-    //                 Ver_Calc=sh (script: "bash calc.sh ${Ver_Br}",
-    //                 returnStdout: true).trim()
-    //                 echo "${Ver_Calc}"
+        
+        // stage("calc tag"){
+        //     when{
+        //         anyOf {
+        //                 branch "main"
+        //                 branch "master"
+        //         }
+        //     }
+        //     steps{
+        //         echo "===============================================Executing calc tag==============================================="
+        //         script{
+        //             Ver_Br=sh (script: "git describe --tags | cut -d '-' -f1 | cut -d '.' -f1-2",
+        //             returnStdout: true).trim()
+        //             echo "${Ver_Br}"
+        //             Ver_Calc=sh (script: "bash calc.sh ${Ver_Br}",
+        //             returnStdout: true).trim()
+        //             echo "${Ver_Calc}"
 
-    //             }     
+        //         }     
                 
-    //         }
+        //     }
            
-    //     }
-    //     stage("is a release"){
-    //         when{
-    //             expression{
-    //                 return GIT_BRANCH.contains('release/')
-    //             }
-    //         }
+        // }
+        // stage("is a release"){
+        //     when{
+        //         anyOf {
+        //                 branch "main"
+        //                 branch "feature/*"
+        //                 branch "master"
+        //         }
+        //     }
             
-    //         steps{
-    //             echo "===============================================Executing Push==============================================="
-    //             // withCredentials([gitUsernamePassword()])
-    //             configFileProvider([configFile(fileId: 'my_settings.xml', variable: 'set')]) {
-    //                 sh "mvn versions:set -DnewVersion=${Ver_Calc} && mvn -s ${set} deploy "
-    //                 }
-    //             script{
+        //     steps{
+        //         echo "===============================================Executing Push==============================================="
                 
-    //                 withCredentials([gitUsernamePassword(credentialsId: '2053d2c3-e0ab-4686-b031-9a1970106e8d', gitToolName: 'Default')]){
-    //                         // sh "git checkout release/${VER}"
-    //                         sh "git tag $Ver_Calc"
-    //                         sh "git push origin $Ver_Calc"
+        //         script{
+                
+        //             withCredentials([gitUsernamePassword(credentialsId: '2053d2c3-e0ab-4686-b031-9a1970106e8d', gitToolName: 'Default')]){
+        //                     // sh "git checkout release/${VER}"
+        //                     sh "git tag $Ver_Calc"
+        //                     sh "git push origin $Ver_Calc"
                     
-    //                     }
-    //             }
+        //                 }
+        //         }
 
 
-    //         }
+        //     }
            
-    //     }
+        // }
     }
     post{
 
