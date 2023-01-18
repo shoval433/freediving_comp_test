@@ -47,7 +47,7 @@ pipeline{
             steps{
                 echo "===============================================Executing e2e test==============================================="
                 script{
-                    dir("test"){
+                    dir("app/test"){
                         sh "./testing.sh"
                     }
 
