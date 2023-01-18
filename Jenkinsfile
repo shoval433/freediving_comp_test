@@ -35,23 +35,25 @@ pipeline{
                 
             }
         }
-    //     }
-    //     stage("is main"){
-    //         when{
-    //             expression{
-    //                 return ("${GIT_BRANCH}"=='main') 
-    //             }
-    //         }
-    //         steps{
-    //             echo "===============================================Executing is main==============================================="
-    //             echo "is main"
-    //             //send him to artiy
-    //             // withCredentials([gitUsernamePassword()])
-    //             configFileProvider([configFile(fileId: 'my_settings.xml', variable: 'set')]) {
-    //                 sh "mvn -s ${set} deploy"
-    //                 }
-    //         }
-    //     }
+    
+        stage("e2e test"){
+            when{
+                anyOf {
+                        branch "main"
+                        branch "feature/*"
+                        branch "master"
+                }
+            }
+            steps{
+                echo "===============================================Executing e2e test==============================================="
+                script{
+                    dir("test"){
+                        sh "python3 test.py"
+                    }
+
+                }
+            }
+        }
     //     //
     //     stage("calc tag"){
     //         when{
