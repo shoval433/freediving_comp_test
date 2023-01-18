@@ -72,7 +72,11 @@ def del_diver(comp,id):
     return "diver was deleted"
 
 
-
+@app.get('/drop/<comp>')
+def drop_data(comp):
+    comp_db=db.get_database(comp)
+    comp_db.diver.drop()
+    return "drop "+ str(comp)
     
 @app.post('/<comp>')
 def add_comp(comp):
@@ -141,6 +145,11 @@ def get_check():
     # comp_db=db.get_database(comp)
     # comp_db.user.insert_one({"name":"shoval"})
     return json_util.dumps(list(db.list_database_names()))
+
+@app.route('/health')
+def get_health():
+   return "OK 200"
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", debug=True)
