@@ -48,7 +48,7 @@ pipeline{
                 echo "===============================================Executing e2e test==============================================="
                 script{
                     dir("app/test"){
-                        sh "./testing.sh"
+                        sh "./testing.sh 43.0.20.203 5001"
                     }
 
                 }
