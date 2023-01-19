@@ -72,6 +72,43 @@ pipeline{
             }
         }
         
+        // stage("calc tag"){
+        //     when{
+        //         anyOf {
+        //                 branch "main"
+        //                 branch "master"
+        //         }
+        //     }
+        //     steps{
+        //         echo "===============================================Executing calc tag==============================================="
+        //         script{
+                    
+        //             Ver_Br=sh (script: "git describe --tags | cut -d '-' -f1",
+        //             returnStdout: true).trim()
+        //             echo "${Ver_Br}"
+        //             Ver_Calc=sh (script: "bash calc.sh ${Ver_Br}",
+        //             returnStdout: true).trim()
+        //             echo "${Ver_Calc}"
+        //             sh "echo $Ver_Calc > v.txt" 
+        //             Ver_Br=sh (script: "cat v.txt| cut -d '.' -f1-2",
+        //             returnStdout: true).trim()
+        //                 withCredentials([gitUsernamePassword(credentialsId: 'shoval_github', gitToolName: 'Default')]){
+        //                     sh "git checkout main "
+        //                     // sh"""
+        //                     // git config --global user.email "jenkins@jenkins.com"
+        //                     // git config --global user.name "jenkins"
+        //                     // """
+        //                     sh "git add v.txt"
+        //                     sh "git commit -m 'From-CI'"
+        //                     // sh "git tag $Ver_Br"
+        //                     sh "git push origin main "
+
+        //                 }   
+        //         }  
+                
+        //     }
+           
+        // }
         stage("calc tag"){
             when{
                 anyOf {
@@ -83,23 +120,9 @@ pipeline{
                 echo "===============================================Executing calc tag==============================================="
                 script{
                     
-                    Ver_Br=sh (script: "git describe --tags | cut -d '-' -f1",
+                    Ver_Calc=sh (script: "git describe --tags | cut -d '-' -f1",
                     returnStdout: true).trim()
-                    echo "${Ver_Br}"
-                    Ver_Calc=sh (script: "bash calc.sh ${Ver_Br}",
-                    returnStdout: true).trim()
-                    echo "${Ver_Calc}"
-                    sh "echo $Ver_Calc > v.txt" 
-                    Ver_Br=sh (script: "cat v.txt| cut -d '.' -f1-2",
-                    returnStdout: true).trim()
-                        withCredentials([gitUsernamePassword(credentialsId: 'shoval_github', gitToolName: 'Default')]){
-                            sh "git checkout main "
-                            sh "git add v.txt"
-                            sh "git commit -m 'From-CI'"
-                            // sh "git tag $Ver_Br"
-                            sh "git push origin main "
-
-                        }   
+                    
                 }  
                 
             }
