@@ -124,7 +124,7 @@ pipeline{
                 echo "===============================================Executing Deploy==============================================="
                 
                 script{
-                    sh "tar -czvf start_to_ec2.tar.gz docker-compose.yaml ./nginx2"
+                    sh "tar -czvf start_to_ec2.tar.gz docker-compose-prod.yaml ./nginx2"
                     sh "echo 'yes'|scp start_to_ec2.tar.gz ubuntu@43.0.20.24:/home/ubuntu/"
                     sh "ssh ubuntu@43.0.20.24 'aws ecr get-login-password --region eu-west-3 | docker login --username AWS --password-stdin 644435390668.dkr.ecr.eu-west-3.amazonaws.com'"
                     sh""" 
