@@ -1,9 +1,9 @@
 #!/bin/bash
 Version=$(cat v.txt)
 
-tag_parts=(${Version//./})
+tag_parts=(${Version//./ })
 
-# doing the calc on arry 
+# doing the calc on arry  
 ((tag_parts[2]++))
 Version="${tag_parts[0]}.${tag_parts[1]}.${tag_parts[2]}"
 
