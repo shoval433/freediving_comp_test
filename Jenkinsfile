@@ -128,11 +128,8 @@ pipeline{
                     sh "echo 'yes'|scp start_to_ec2.tar.gz ubuntu@43.0.20.24:/home/ubuntu/"
                     sh "ssh ubuntu@43.0.20.24 'aws ecr get-login-password --region eu-west-3 | docker login --username AWS --password-stdin 644435390668.dkr.ecr.eu-west-3.amazonaws.com'"
                     sh""" 
-                    ssh ubuntu@43.0.20.24 'tar -xvzf start_to_ec2.tar.gz'
-                    ssh ubuntu@43.0.20.24 'docker compose up -d --build my_db'
-                    ssh ubuntu@43.0.20.24 'docker rm -f prod'
-                    ssh ubuntu@43.0.20.24 'docker run -d --name prod --network ubuntu_default  644435390668.dkr.ecr.eu-west-3.amazonaws.com/freedivingcompetitions:1.1'
-                    ssh ubuntu@43.0.20.24 'docker compose up -d --build proxy'
+                    ssh ubuntu@43.0.20.24 'tar -xvzf start_to_ec2.tar.gz && export VERSION_COMP=${Ver_Br} '
+                    ssh ubuntu@43.0.20.24 'docker compose up -d -f docker-compose-prod.yaml --build'
                     """
                     
                 }
