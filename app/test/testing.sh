@@ -44,7 +44,7 @@ if echo "$test1" | grep -q "$expected_result1"; then
     # post_success=$((post_success+1))
     echo "success"
 else
-    echo " Failed Test POST/weight#1 - Could not POST an IN Request."
+    echo " Failed Test POST/<comp>#1 - Could not POST an IN Request."
     exit 1
 fi
 

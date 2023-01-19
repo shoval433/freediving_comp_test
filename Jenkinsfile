@@ -55,33 +55,33 @@ pipeline{
             }
         }
         
-        // stage("calc tag"){
-        //     when{
-        //         anyOf {
-        //                 branch "main"
-        //                 branch "master"
-        //         }
-        //     }
-        //     steps{
-        //         echo "===============================================Executing calc tag==============================================="
-        //         script{
-        //             Ver_Br=sh (script: "git describe --tags | cut -d '-' -f1 | cut -d '.' -f1-2",
-        //             returnStdout: true).trim()
-        //             echo "${Ver_Br}"
-        //             Ver_Calc=sh (script: "bash calc.sh ${Ver_Br}",
-        //             returnStdout: true).trim()
-        //             echo "${Ver_Calc}"
-                        // withCredentials([gitUsernamePassword(credentialsId: '2053d2c3-e0ab-4686-b031-9a1970106e8d', gitToolName: 'Default')]){
-                        //     sh "git checkout release/${VER}"
+        stage("calc tag"){
+            when{
+                anyOf {
+                        branch "main"
+                        branch "master"
+                }
+            }
+            steps{
+                echo "===============================================Executing calc tag==============================================="
+                script{
+                    Ver_Br=sh (script: "git describe --tags | cut -d '-' -f1",
+                    returnStdout: true).trim()
+                    // echo "${Ver_Br}"
+                    // Ver_Calc=sh (script: "bash calc.sh ${Ver_Br}",
+                    // returnStdout: true).trim()
+                    // echo "${Ver_Calc}"
+                    //     withCredentials([gitUsernamePassword(credentialsId: '2053d2c3-e0ab-4686-b031-9a1970106e8d', gitToolName: 'Default')]){
+                    //         sh "git checkout release/${VER}"
                             
-                        //     sh "git tag $NEXT_VER"
-                        //     sh "git push  origin $NEXT_VER"
+                    //         sh "git tag $NEXT_VER"
+                    //         sh "git push  origin $NEXT_VER"
 
-        //         }     
+                    //     }     
                 
-        //     }
+            }
            
-        // }
+        }
         stage("Publish"){
             when{
                 anyOf {
@@ -100,9 +100,38 @@ pipeline{
                                 accessKeyVaeiable: 'AWS_ACCESS_KET_ID',
                                 secretKeyVariable: 'AWS_SECRET_KEY_ID'
                                 ]]) {
-                                sh "docker tag freedive_comp_main-app_comp shoval_private_ecr"
-                            docker.withRegistry("http://644435390668.dkr.ecr.eu-west-3.amazonaws.com/shoval_private_ecr", "ecr:eu-west-3:644435390668") {
-                            docker.image("shoval_private_ecr").push()
+                                sh "docker tag freedive_comp_main-app_comp freedivingcompetitions:${Ver_Br}"
+                            docker.withRegistry("http://644435390668.dkr.ecr.eu-west-3.amazonaws.com/freedivingcompetitions", "ecr:eu-west-3:644435390668") {
+                            docker.image("freedivingcompetitions:${Ver_Br}").push()
+                            }
+                }
+                }
+
+
+            }
+           
+        }
+        stage("Deploy"){
+            when{
+                anyOf {
+                        branch "main"
+                        branch "master"
+                }
+            }
+            
+            steps{
+                echo "===============================================Executing Deploy==============================================="
+                
+                script{
+                withCredentials([[
+                                $class: 'AmazonWebServicesCredentialsBinding',
+                                credentialsId: 'aws_shoval',
+                                accessKeyVaeiable: 'AWS_ACCESS_KET_ID',
+                                secretKeyVariable: 'AWS_SECRET_KEY_ID'
+                                ]]) {
+                                sh "docker tag freedive_comp_main-app_comp freedivingcompetitions:${Ver_Br}"
+                            docker.withRegistry("http://644435390668.dkr.ecr.eu-west-3.amazonaws.com/freedivingcompetitions", "ecr:eu-west-3:644435390668") {
+                            docker.image("freedivingcompetitions:${Ver_Br}").push()
                             }
                 }
                 }
