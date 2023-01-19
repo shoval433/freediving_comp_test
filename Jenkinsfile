@@ -38,7 +38,7 @@ pipeline{
                 echo "===============================================Executing Building for all==============================================="
                 sh "ls"
                 sh"docker-compose down"
-                sh "docker-compose build --no-cache "
+                sh "docker-compose build "
                 sh "docker-compose up -d"
                 sh "docker images"
             }
