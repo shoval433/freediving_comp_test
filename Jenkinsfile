@@ -1,4 +1,3 @@
-//testsave
 pipeline{
     agent any
    //
@@ -65,8 +64,8 @@ pipeline{
             steps{
                 echo "===============================================Executing calc tag==============================================="
                 script{
-                    Ver_Br=sh (script: "git describe --tags | cut -d '-' -f1",
-                    returnStdout: true).trim()
+                    Ver_Br="1.1"//sh (script: "git describe --tags | cut -d '-' -f1",
+                    //returnStdout: true).trim()
                     // echo "${Ver_Br}"
                     // Ver_Calc=sh (script: "bash calc.sh ${Ver_Br}",
                     // returnStdout: true).trim()
@@ -77,7 +76,8 @@ pipeline{
                     //         sh "git tag $NEXT_VER"
                     //         sh "git push  origin $NEXT_VER"
 
-                    //     }     
+                    //     }   
+                }  
                 
             }
            
@@ -146,18 +146,18 @@ pipeline{
         success{
             script{
                 
-                script{
-                    echo "yes"
+                
+                echo "yes"
 
-                    // emailext    recipientProviders: [culprits()],
-                    // subject: 'yes', body: 'ooooononononn',  
-                    // attachLog: true
+                // emailext    recipientProviders: [culprits()],
+                // subject: 'yes', body: 'ooooononononn',  
+                // attachLog: true
 
 
-                    // emailext to: 'shoval123055@gmail.com',
-                    // subject: 'Congratulations!', body: 'Well, this time you didnt mess up',  
-                    // attachLog: true
-                }     
+                // emailext to: 'shoval123055@gmail.com',
+                // subject: 'Congratulations!', body: 'Well, this time you didnt mess up',  
+                // attachLog: true
+                
             
             
                 // gitlabCommitStatus(connection: gitLabConnection(gitLabConnection: 'my-repo' , jobCredentialId: ''),name: 'report'){
