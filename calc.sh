@@ -1,5 +1,5 @@
 #!/bin/bash
-Version=$(git describe --tags | cut -d '-' -f1 )
+Version=$(cat v.txt)
 
 tag_parts=(${Version//./})
 

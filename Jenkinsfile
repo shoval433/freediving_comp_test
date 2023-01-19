@@ -5,17 +5,31 @@ pipeline{
         timestamps()
         // gitConnection('my-repo')  
     }
-    
+    environment{
+        def Fcommit=""
+    }
     stages{
         stage("CHEKOUT"){
             steps{
                 echo "===============================================Executing CHEKOUT==============================================="
                 deleteDir()
                 checkout scm
-              
+                Fcommit=sh (script: "git show -s --format=%s",
+                    returnStdout: true).trim()
+
             }
         }
-    
+        stage("test Push from CI"){
+        when{
+            expression{
+                    return Fcommit =="From-CI"  
+                }
+        }
+        steps{
+            err "is from ci"
+        }
+
+        }
         stage("Building for all"){
             steps{
                 echo "===============================================Executing Building for all==============================================="
@@ -64,20 +78,23 @@ pipeline{
             steps{
                 echo "===============================================Executing calc tag==============================================="
                 script{
-                    Ver_Br="1.1"
-                    // Ver_Br=sh (script: "git describe --tags | cut -d '-' -f1",
-                    // returnStdout: true).trim()
-                    // echo "${Ver_Br}"
-                    // Ver_Calc=sh (script: "bash calc.sh ${Ver_Br}",
-                    // returnStdout: true).trim()
-                    // echo "${Ver_Calc}"
-                    //     withCredentials([gitUsernamePassword(credentialsId: '2053d2c3-e0ab-4686-b031-9a1970106e8d', gitToolName: 'Default')]){
-                    //         sh "git checkout release/${VER}"
-                            
-                    //         sh "git tag $NEXT_VER"
-                    //         sh "git push  origin $NEXT_VER"
+                    
+                    Ver_Br=sh (script: "git describe --tags | cut -d '-' -f1",
+                    returnStdout: true).trim()
+                    echo "${Ver_Br}"
+                    Ver_Calc=sh (script: "bash calc.sh ${Ver_Br}",
+                    returnStdout: true).trim()
+                    echo "${Ver_Calc}"
+                    sh "echo $Ver_Calc > v.txt" 
+                    Ver_Br=sh (script: "cat v.txt| cut -d '.' -f1-2",
+                    returnStdout: true).trim()
+                        withCredentials([gitUsernamePassword(credentialsId: '2053d2c3-e0ab-4686-b031-9a1970106e8d', gitToolName: 'Default')]){
+                            sh "git add v.txt"
+                            sh "git commit -m 'From-CI'"
+                            sh "git tag $Ver_Br"
+                            sh "git push origin main $Ver_Br"
 
-                    //     }   
+                        }   
                 }  
                 
             }
