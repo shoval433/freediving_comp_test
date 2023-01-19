@@ -128,8 +128,8 @@ pipeline{
                     sh "echo 'yes'|scp start_to_ec2.tar.gz ubuntu@43.0.20.24:/home/ubuntu/"
                     sh "ssh ubuntu@43.0.20.24 'aws ecr get-login-password --region eu-west-3 | docker login --username AWS --password-stdin 644435390668.dkr.ecr.eu-west-3.amazonaws.com'"
                     sh""" 
-                    ssh ubuntu@43.0.20.24 'tar -xvzf start_to_ec2.tar.gz && export VERSION_COMP=${Ver_Br} '
-                    ssh ubuntu@43.0.20.24 'docker compose -f docker-compose-prod.yaml up'
+                    ssh ubuntu@43.0.20.24 'tar -xvzf start_to_ec2.tar.gz'
+                    ssh ubuntu@43.0.20.24 'export VERSION_COMP = ${Ver_Br} && docker compose -f docker-compose-prod.yaml up'
                     """
                     
                 }
