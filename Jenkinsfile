@@ -64,8 +64,9 @@ pipeline{
             steps{
                 echo "===============================================Executing calc tag==============================================="
                 script{
-                    Ver_Br=sh (script: "git describe --tags | cut -d '-' -f1",
-                    returnStdout: true).trim()
+                    Ver_Br="1.1"
+                    // Ver_Br=sh (script: "git describe --tags | cut -d '-' -f1",
+                    // returnStdout: true).trim()
                     // echo "${Ver_Br}"
                     // Ver_Calc=sh (script: "bash calc.sh ${Ver_Br}",
                     // returnStdout: true).trim()
