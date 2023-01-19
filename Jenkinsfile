@@ -7,6 +7,7 @@ pipeline{
     }
     environment{
         def Fcommit=""
+        def Ver_Calc=""
     }
     stages{
         stage("CHEKOUT"){
@@ -92,8 +93,8 @@ pipeline{
                         withCredentials([gitUsernamePassword(credentialsId: '2053d2c3-e0ab-4686-b031-9a1970106e8d', gitToolName: 'Default')]){
                             sh "git add v.txt"
                             sh "git commit -m 'From-CI'"
-                            sh "git tag $Ver_Br"
-                            sh "git push origin main $Ver_Br"
+                            // sh "git tag $Ver_Br"
+                            sh "git push origin main "
 
                         }   
                 }  
@@ -119,9 +120,9 @@ pipeline{
                                 accessKeyVaeiable: 'AWS_ACCESS_KET_ID',
                                 secretKeyVariable: 'AWS_SECRET_KEY_ID'
                                 ]]) {
-                                sh "docker tag freedive_comp_main-app_comp freedivingcompetitions:${Ver_Br}"
+                                sh "docker tag freedive_comp_main-app_comp freedivingcompetitions:${Ver_Calc}"
                             docker.withRegistry("http://644435390668.dkr.ecr.eu-west-3.amazonaws.com/freedivingcompetitions", "ecr:eu-west-3:644435390668") {
-                            docker.image("freedivingcompetitions:${Ver_Br}").push()
+                            docker.image("freedivingcompetitions:${Ver_Calc}").push()
                             }
                 }
                 }
@@ -147,7 +148,7 @@ pipeline{
                     sh "ssh ubuntu@43.0.20.24 'aws ecr get-login-password --region eu-west-3 | docker login --username AWS --password-stdin 644435390668.dkr.ecr.eu-west-3.amazonaws.com'"
                     sh""" 
                     ssh ubuntu@43.0.20.24 'tar -xvzf start_to_ec2.tar.gz'
-                    ssh ubuntu@43.0.20.24 'export VERSION_COMP=${Ver_Br} && docker compose -f docker-compose-prod.yaml up -d '
+                    ssh ubuntu@43.0.20.24 'export VERSION_COMP=${Ver_Calc} && docker compose -f docker-compose-prod.yaml up -d '
                     """
                     
                 }
