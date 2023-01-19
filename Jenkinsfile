@@ -31,6 +31,7 @@ pipeline{
         steps{
             err "is from ci"
         }
+        //
 
         }
         stage("Building for all"){
