@@ -90,7 +90,7 @@ pipeline{
                     sh "echo $Ver_Calc > v.txt" 
                     Ver_Br=sh (script: "cat v.txt| cut -d '.' -f1-2",
                     returnStdout: true).trim()
-                        withCredentials([gitUsernamePassword(credentialsId: '2053d2c3-e0ab-4686-b031-9a1970106e8d', gitToolName: 'Default')]){
+                        withCredentials([gitUsernamePassword(credentialsId: 'shoval_github', gitToolName: 'Default')]){
                             sh "git add v.txt"
                             sh "git commit -m 'From-CI'"
                             // sh "git tag $Ver_Br"
