@@ -1,7 +1,7 @@
 #!/bin/bash
 Version=$(git describe --tags | cut -d '-' -f1 )
 
-tag_parts=(${Version//./ })
+tag_parts=(${Version//./})
 
 # doing the calc on arry 
 ((tag_parts[2]++))

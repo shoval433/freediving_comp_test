@@ -64,8 +64,8 @@ pipeline{
             steps{
                 echo "===============================================Executing calc tag==============================================="
                 script{
-                    Ver_Br="1.1"//sh (script: "git describe --tags | cut -d '-' -f1",
-                    //returnStdout: true).trim()
+                    Ver_Br=sh (script: "git describe --tags | cut -d '-' -f1",
+                    returnStdout: true).trim()
                     // echo "${Ver_Br}"
                     // Ver_Calc=sh (script: "bash calc.sh ${Ver_Br}",
                     // returnStdout: true).trim()
@@ -123,17 +123,22 @@ pipeline{
                 echo "===============================================Executing Deploy==============================================="
                 
                 script{
-                withCredentials([[
+                    withCredentials([[
                                 $class: 'AmazonWebServicesCredentialsBinding',
                                 credentialsId: 'aws_shoval',
                                 accessKeyVaeiable: 'AWS_ACCESS_KET_ID',
                                 secretKeyVariable: 'AWS_SECRET_KEY_ID'
                                 ]]) {
-                                sh "docker tag freedive_comp_main-app_comp freedivingcompetitions:${Ver_Br}"
-                            docker.withRegistry("http://644435390668.dkr.ecr.eu-west-3.amazonaws.com/freedivingcompetitions", "ecr:eu-west-3:644435390668") {
-                            docker.image("freedivingcompetitions:${Ver_Br}").push()
-                            }
-                }
+                    sh "tar -czvf start_to_ec2.tar.gz docker-compose.yaml ./nginx2"
+                    sh "scp start_to_ec2.tar.gz ubuntu@43.0.20.24:/home/ubuntu/"
+                    sh "ssh ubuntu@43.0.20.24 'aws ecr get-login ${AWS_ACCESS_KET_ID} ${AWS_SECRET_KEY_ID} --region eu-west-3 | docker login --username AWS --password-stdin 644435390668.dkr.ecr.eu-west-3.amazonaws.com'"
+                    sh""" 
+                    ssh ubuntu@43.0.20.24 'tar -xvzf start_to_ec2.tar.gz'
+                    ssh ubuntu@43.0.20.24 'docker compose up -d --build my_db'
+                    ssh ubuntu@43.0.20.24 'docker run -d --name prod --network freedive_comp_main_default  644435390668.dkr.ecr.eu-west-3.amazonaws.com/freedivingcompetitions:1.1'
+                    ssh ubuntu@43.0.20.24 'docker compose up -d --build proxy'
+                    """
+                    }
                 }
 
 
