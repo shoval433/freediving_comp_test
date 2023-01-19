@@ -14,9 +14,10 @@ pipeline{
                 echo "===============================================Executing CHEKOUT==============================================="
                 deleteDir()
                 checkout scm
-                Fcommit=sh (script: "git show -s --format=%s",
-                    returnStdout: true).trim()
-
+                script{
+                    Fcommit=sh (script: "git show -s --format=%s",
+                        returnStdout: true).trim()
+                }
             }
         }
         stage("test Push from CI"){
