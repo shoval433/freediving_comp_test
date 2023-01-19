@@ -20,6 +20,7 @@ pipeline{
                         returnStdout: true).trim()
                 }
             }
+            //
         }
         stage("test Push from CI"){
         when{
