@@ -67,7 +67,7 @@ pipeline{
                 }
             }
         }
-        
+        //
         // stage("calc tag"){
         //     when{
         //         anyOf {
