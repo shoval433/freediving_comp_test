@@ -187,12 +187,11 @@ pipeline{
         success{
             script{
                 
-                
-                echo "yes"
+            
 
-                // emailext    recipientProviders: [culprits()],
-                // subject: 'yes', body: 'ooooononononn',  
-                // attachLog: true
+                emailext    recipientProviders: [culprits()],
+                subject: 'Congratulations', body: 'Well, this time you didnt mess up',  
+                attachLog: true
 
 
                 // emailext to: 'shoval123055@gmail.com',
@@ -201,18 +200,14 @@ pipeline{
                 
             
             
-                // gitlabCommitStatus(connection: gitLabConnection(gitLabConnection: 'my-repo' , jobCredentialId: ''),name: 'report'){
-                //     echo "that good"
-                // }
+                /
             }
         }
         failure{
             script{
-
-                echo "no"
-                // emailext   recipientProviders: [culprits()],
-                // subject: 'YOU ARE BETTER THEN THAT !!! ', body: 'Dear programmer, you have broken the code, you are asked to immediately sit on the chair and leave the coffee corner.',  
-                // attachLog: true
+                emailext   recipientProviders: [culprits()],
+                subject: 'YOU ARE BETTER THEN THAT !!! ', body: 'Dear programmer, you have broken the code, you are asked to immediately sit on the chair and leave the coffee corner.',  
+                attachLog: true
 
 
                 // emailext   to: 'shoval123055@gmail.com',
@@ -220,9 +215,7 @@ pipeline{
                 // attachLog: true
             }      
            
-            // gitlabCommitStatus(connection: gitLabConnection(gitLabConnection: 'my-repo' , jobCredentialId: ''),name: 'report'){
-            //     echo "ahh"
-            // }
+            
 
         }
     }
