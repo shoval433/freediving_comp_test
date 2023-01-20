@@ -15,7 +15,7 @@ if [ "$test_last" -gt "$test_befor" ] || [ "$test_last" -eq "$test_befor" ];then
     test_last=`echo $last_tag | cut -d '.' -f3`
     test_befor=`echo $tag_befor | cut -d '.' -f3`
         if [ "$test_last" -gt "$test_befor" ];then
-        echo "$test_last is good" 
+        echo "$last_tag is good" 
         else
         echo "tag not good"
         exit 1
