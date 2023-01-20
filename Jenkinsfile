@@ -5,8 +5,7 @@ pipeline{
         timestamps()
         // gitConnection('my-repo')  
     }
-    environment{
-        def Fcommit=""
+    environment{   
         def Ver_Calc=""
     }
     stages{
@@ -15,22 +14,19 @@ pipeline{
                 echo "===============================================Executing CHEKOUT==============================================="
                 deleteDir()
                 checkout scm
-                script{
-                    Fcommit=sh (script: "git show -s --format=%s",
-                        returnStdout: true).trim()
-                }
+    
             }
             //
         }
-        stage("test Push from CI"){
-        when{
-            expression{
-                    return Fcommit =="From-CI"  
-                }
-        }
-        steps{
-            err "is from ci"
-        }
+        // stage("test Push from CI"){
+        // when{
+        //     expression{
+        //             return Fcommit =="From-CI"  
+        //         }
+        // }
+        // steps{
+        //     err "is from ci"
+        // }
         //
 
         }
@@ -38,10 +34,10 @@ pipeline{
             steps{
                 echo "===============================================Executing Building for all==============================================="
                 sh "ls"
-                sh"docker-compose down"
+                sh "docker-compose down"
                 sh "docker-compose build "
                 sh "docker-compose up -d"
-                sh "docker images"
+                // sh "docker images"
             }
         }
         stage("test build"){
@@ -122,6 +118,7 @@ pipeline{
                     
                     Ver_Calc=sh (script: "git describe --tags | cut -d '-' -f1",
                     returnStdout: true).trim()
+                    sh "tag_check.sh"
                     
                 }  
                 
