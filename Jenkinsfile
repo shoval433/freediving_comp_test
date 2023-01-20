@@ -118,7 +118,8 @@ pipeline{
                     
                     Ver_Calc=sh (script: "git describe --tags | cut -d '-' -f1",
                     returnStdout: true).trim()
-                    sh "./tag_check.sh"
+                    
+                    sh "./tag_check.sh $Ver_Calc"
                     
                 }  
                 
