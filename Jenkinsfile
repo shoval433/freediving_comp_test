@@ -170,9 +170,9 @@ pipeline{
                 
                     sh "tar -czvf start_to_ec2.tar.gz docker-compose-prod.yaml ./nginx2 "
                     sh "echo 'yes'|scp start_to_ec2.tar.gz ubuntu@43.0.20.24:/home/ubuntu/"
-                    
+
                     sh "cd app && tar -czvf templates.tar.gz ./templates"
-                    sh "echo 'yes'|templates.tar.gz ubuntu@43.0.20.24:/home/ubuntu/"
+                    sh "echo 'yes'|scp templates.tar.gz ubuntu@43.0.20.24:/home/ubuntu/"
                     sh "ssh ubuntu@43.0.20.24 'aws ecr get-login-password --region eu-west-3 | docker login --username AWS --password-stdin 644435390668.dkr.ecr.eu-west-3.amazonaws.com'"
                     sh""" 
                     ssh ubuntu@43.0.20.24 'tar -xvzf start_to_ec2.tar.gz'
