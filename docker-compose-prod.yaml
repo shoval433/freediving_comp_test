@@ -5,7 +5,7 @@ services:
       ports:
           - "80:80"
       volumes:
-       - ./app/templates:/usr/share/nginx/html/static
+       - ./templates:/usr/share/nginx/html/static
       depends_on:
         - app_comp
     
