@@ -127,7 +127,7 @@ pipeline{
                     sh""" 
                     ssh ubuntu@43.0.20.24 'tar -xvzf start_to_ec2.tar.gz'
                     ssh ubuntu@43.0.20.24 'tar -xvzf templates.tar.gz'
-                    ssh ubuntu@43.0.20.24 'docker compose -f docker-compose-prod.yaml down && export VERSION_COMP=${Ver_Calc} && docker compose -f docker-compose-prod.yaml up -d '
+                    ssh ubuntu@43.0.20.24 'docker compose -f docker-compose-prod.yaml down && export VERSION_COMP=${Ver_Calc} && docker compose -f docker-compose-prod.yaml up --build -d '
                     """
                     
                 }
