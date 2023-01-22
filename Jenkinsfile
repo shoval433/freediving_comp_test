@@ -1,9 +1,8 @@
 pipeline{
     agent any
-   //
     options {
         timestamps()
-        // gitConnection('my-repo')  
+        
     }
     environment{   
         def Ver_Calc=""
@@ -16,32 +15,21 @@ pipeline{
                 checkout scm
     
             }
-            //
+            
         }
-        // stage("test Push from CI"){
-        // when{
-        //     expression{
-        //             return Fcommit =="From-CI"  
-        //         }
-        // }
-        // steps{
-        //     err "is from ci"
-        // }
-        //
+        
 
         
         stage("Building for all"){
             steps{
                 echo "===============================================Executing Building for all==============================================="
-                sh "ls"
-                sh "docker-compose down"
                 sh "docker-compose build "
                 sh "docker-compose up -d"
-                // sh "docker images"
             }
         }
         stage("test build"){
             steps{
+                 echo "===============================================Executing test build==============================================="
                 script{
                     sh "curl http://43.0.20.203:5001"
                 }
@@ -67,44 +55,6 @@ pipeline{
                 }
             }
         }
-        //
-        // stage("calc tag"){
-        //     when{
-        //         anyOf {
-        //                 branch "main"
-        //                 branch "master"
-        //         }
-        //     }
-        //     steps{
-        //         echo "===============================================Executing calc tag==============================================="
-        //         script{
-                    
-        //             Ver_Br=sh (script: "git describe --tags | cut -d '-' -f1",
-        //             returnStdout: true).trim()
-        //             echo "${Ver_Br}"
-        //             Ver_Calc=sh (script: "bash calc.sh ${Ver_Br}",
-        //             returnStdout: true).trim()
-        //             echo "${Ver_Calc}"
-        //             sh "echo $Ver_Calc > v.txt" 
-        //             Ver_Br=sh (script: "cat v.txt| cut -d '.' -f1-2",
-        //             returnStdout: true).trim()
-        //                 withCredentials([gitUsernamePassword(credentialsId: 'shoval_github', gitToolName: 'Default')]){
-        //                     sh "git checkout main "
-        //                     // sh"""
-        //                     // git config --global user.email "jenkins@jenkins.com"
-        //                     // git config --global user.name "jenkins"
-        //                     // """
-        //                     sh "git add v.txt"
-        //                     sh "git commit -m 'From-CI'"
-        //                     // sh "git tag $Ver_Br"
-        //                     sh "git push origin main "
-
-        //                 }   
-        //         }  
-                
-        //     }
-           
-        // }
         stage("calc tag"){
             when{
                 anyOf {
@@ -188,6 +138,9 @@ pipeline{
         }
     }
     post{
+        always{
+            sh "docker-compose down"
+        }
 
         success{
             script{
