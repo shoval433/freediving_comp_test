@@ -167,7 +167,7 @@ pipeline{
                 echo "===============================================Executing Deploy==============================================="
                 
                 script{
-                    sh "ssh ubuntu@43.0.20.24 'rm -f docker-compose-prod.yaml ./nginx2 ./templates'"
+                    sh "ssh ubuntu@43.0.20.24 'rm -f docker-compose-prod.yaml && rm -rd ./nginx2 ./templates'"
                     sh "tar -czvf start_to_ec2.tar.gz docker-compose-prod.yaml ./nginx2 "
                     sh "echo 'yes'|scp start_to_ec2.tar.gz ubuntu@43.0.20.24:/home/ubuntu/"
 
