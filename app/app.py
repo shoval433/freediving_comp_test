@@ -16,14 +16,15 @@ db = client
 
 @app.route('/')
 def home():
-    return "hi"
+    return render_template("index.html")
 
-@app.get('/<comp>')
+@app.get('/<comp>/')
 def get_comp(comp):
     comp_db=db.get_database(comp)
     return json_util.dumps(list(comp_db.diver.find()))
+    # return render_template("comp.html",results=list(comp_db.diver.find()))
 
-@app.put('/<comp>')
+@app.put('/<comp>/')
 def update_comp(comp):
     _id = request.form.get('diver_id')
     firstName = request.form.get('firstName')
@@ -62,7 +63,7 @@ def update_comp(comp):
    
     return json_util.dumps(list(comp_db.diver.find({"_id":_id})))
 
-@app.delete('/<comp>/<id>')
+@app.delete('/<comp>/<id>/')
 def del_diver(comp,id):
     comp_db=db.get_database(comp)
     myquery = { "_id": id }
@@ -72,13 +73,13 @@ def del_diver(comp,id):
     return "diver was deleted"
 
 
-@app.get('/drop/<comp>')
+@app.get('/drop/<comp>/')
 def drop_data(comp):
     comp_db=db.get_database(comp)
     comp_db.diver.drop()
     return "drop "+ str(comp)
     
-@app.post('/<comp>')
+@app.post('/<comp>/')
 def add_comp(comp):
     _id = request.form.get('diver_id')
     firstName = request.form.get('firstName')
@@ -114,12 +115,12 @@ def add_comp(comp):
 
 
 
-@app.get('/<comp>/id/<id>')
+@app.get('/<comp>/id/<id>/')
 def get_diver_id(comp,id):
     comp_db=db.get_database(comp)
     return json_util.dumps(list(comp_db.diver.find({"_id":id})))
 
-@app.get('/<comp>/discipline/<discipline>')
+@app.get('/<comp>/discipline/<discipline>/')
 def get_discipline(comp,discipline):
     comp_db=db.get_database(comp)
     return json_util.dumps(list(comp_db.diver.find({"discipline":discipline})))
@@ -129,24 +130,24 @@ def get_gender(comp,gender):
     comp_db=db.get_database(comp)
     return json_util.dumps(list(comp_db.diver.find({"gender":gender})))
 
-@app.get('/<comp>/nr/<NR>')
+@app.get('/<comp>/nr/<NR>/')
 def get_NR(comp,NR):
     comp_db=db.get_database(comp)
     return json_util.dumps(list(comp_db.diver.find({"NR":NR})))
-@app.get('/<comp>/country/<country>')
+@app.get('/<comp>/country/<country>/')
 def get_country(comp,country):
     comp_db=db.get_database(comp)
     return json_util.dumps(list(comp_db.diver.find({"country":country})))
 
 
 
-@app.route('/check')
+@app.route('/check/')
 def get_check():
     # comp_db=db.get_database(comp)
     # comp_db.user.insert_one({"name":"shoval"})
     return json_util.dumps(list(db.list_database_names()))
 
-@app.route('/health')
+@app.route('/health/')
 def get_health():
    return "OK 200"
 

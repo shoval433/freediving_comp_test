@@ -7,7 +7,7 @@ tag_befor=`echo $all_tag |rev| cut -d " " -f2 | rev`
 
 test_last=`echo $last_tag | cut -d '.' -f1`
 test_befor=`echo $tag_befor | cut -d '.' -f1`
-
+# if [ "$last_tag" -eq "$tag_befor" ];then
 if [ "$test_last" -gt "$test_befor" ] || [ "$test_last" -eq "$test_befor" ];then
     test_last=`echo $last_tag | cut -d '.' -f2`
     test_befor=`echo $tag_befor | cut -d '.' -f2`

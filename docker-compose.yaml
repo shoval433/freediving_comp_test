@@ -4,6 +4,8 @@ services:
       build: ./nginx2
       ports:
           - "5001:80"
+      volumes:
+       - ./app/templates:/usr/share/nginx/html/static
       depends_on:
         - app_comp
     
