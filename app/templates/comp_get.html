@@ -44,9 +44,11 @@
         </tr>
       {% endfor %}
     </table>
-    <!-- <h2>Add a new diver:</h2>
-    <form action="/submit" method="post">
-        <label for="_id">diver_id:</label>
+    <h2>Add a new diver:</h2>
+    <form method="post">
+        <!-- <label for="Comp">Competition:</label>
+        <input type="text" id="Comp" name="Comp"><br> -->
+        <label for="_id">Diver ID:</label>
         <input type="text" id="_id" name="_id"><br>
         <label for="firstName">First Name:</label>
         <input type="text" id="firstName" name="firstName"><br>
@@ -64,40 +66,7 @@
         <input type="text" id="NR" name="NR"><br>
         <label for="gender">Gender:</label>
         <input type="text" id="gender" name="gender"><br>
-        <input type="button" value="Submit" onclick="submitForm()">
-    </form>
-    <script>
-    function submitForm() {
-        let _id = document.getElementById("_id").value;
-        let firstName = document.getElementById("firstName").value;
-        let lastName = document.getElementById("lastName").value;
-        let meter = document.getElementById("meter").value;
-        let discipline = document.getElementById("discipline").value;
-        let time = document.getElementById("time").value;
-        let country = document.getElementById("country").value;
-        let NR = document.getElementById("NR").value;
-        let gender = document.getElementById("gender").value;
-        let data = new FormData();
-        data.append("_id", _id);
-        data.append("firstName", firstName);
-        data.append("lastName", lastName);
-        data.append("meter", meter);
-        data.append("discipline", discipline);
-        data.append("time", time);
-        data.append("country", country);
-        data.append("NR", NR);
-        data.append("gender", gender);
-        let xhr = new XMLHttpRequest();
-        xhr.open("POST", "/"+Name+"/", true);
-        xhr.onload = function () {
-            if (xhr.status === 200) {
-                alert(xhr.responseText);
-            } else {
-                alert("error");
-            }
-        };
-        xhr.send(data);
-    }
-    </script> -->
+        <input type="submit" value="Send">
+      </form>
   </body>
 </html>

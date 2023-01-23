@@ -5,7 +5,7 @@ from datetime import datetime,date
 from bson import json_util
 import csv,json,os 
 from bson.objectid import ObjectId
-
+import subprocess
 app = Flask(__name__)
 
 client = MongoClient('my_db', username='root', password='password')
@@ -109,8 +109,8 @@ def add_comp(comp):
             return (f"{key} is null")
     try:
         comp_db.diver.insert_one(doc)
-        print("hi")
-        return json_util.dumps(list(comp_db.diver.find({"_id":_id})))
+        return redirect('/'+comp+'/')
+        # return json_util.dumps(list(comp_db.diver.find({"_id":_id})))
     except:
         return "diver is on the list" ,404
 
@@ -151,6 +151,7 @@ def get_check():
 @app.route('/health/')
 def get_health():
    return "OK 200"
+
 
 
 if __name__ == "__main__":
