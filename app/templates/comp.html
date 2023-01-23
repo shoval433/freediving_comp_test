@@ -39,6 +39,8 @@
     <br>
     <h3>Add a new entry:</h3>
     <form>
+        <label for="_id">diver_id:</label>
+        <input type="text" id="_id" name="_id"><br>
         <label for="firstName">First Name:</label>
         <input type="text" id="firstName" name="firstName"><br>
         <label for="lastName">Last Name:</label>
@@ -62,7 +64,7 @@
         document.getElementById("competitionName").innerHTML = "Competition: " + competitionName;
 
         // Replace this with the actual list of dictionaries
-        // var results = [{"_id": "31","firstName": "shoval","lastName": "astamker","meter": "60","discipline": " CNF","time": "02:00","country": "Israel","NR": "yes","gender": "M"}]
+        var results = [{"_id": "31","firstName": "shoval","lastName": "astamker","meter": "60","discipline": " CNF","time": "02:00","country": "Israel","NR": "yes","gender": "M"}]
 
         var resultsTable = document.getElementById("results");
         for (var i = 0; i < results.length; i++) {
@@ -88,6 +90,7 @@
             genderCell.innerHTML = results[i].gender;
         }
         function submitForm() {
+            var _id = document.getElementById("_id").value;
             var firstName = document.getElementById("firstName").value;
             var lastName = document.getElementById("lastName").value;
             var meter = document.getElementById("meter").value;
@@ -98,6 +101,7 @@
             var gender = document.getElementById("gender").value;
 
             var newData = {
+                "_id":_id,
                 "firstName": firstName,
                 "lastName": lastName,
                 "meter": meter,

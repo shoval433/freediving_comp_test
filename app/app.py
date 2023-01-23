@@ -21,8 +21,8 @@ def home():
 @app.get('/<comp>/')
 def get_comp(comp):
     comp_db=db.get_database(comp)
-    return json_util.dumps(list(comp_db.diver.find()))
-    # return render_template("comp.html",results=list(comp_db.diver.find()))
+    # return json_util.dumps(list(comp_db.diver.find()))
+    return render_template("comp_get.html",result=list(comp_db.diver.find()),NAME=str(comp))
 
 @app.put('/<comp>/')
 def update_comp(comp):
@@ -81,7 +81,7 @@ def drop_data(comp):
     
 @app.post('/<comp>/')
 def add_comp(comp):
-    _id = request.form.get('diver_id')
+    _id = request.form.get('_id')
     firstName = request.form.get('firstName')
     lastName = request.form.get('lastName')
     meter = request.form.get('meter')
@@ -109,6 +109,7 @@ def add_comp(comp):
             return (f"{key} is null")
     try:
         comp_db.diver.insert_one(doc)
+        print("hi")
         return json_util.dumps(list(comp_db.diver.find({"_id":_id})))
     except:
         return "diver is on the list" ,404
