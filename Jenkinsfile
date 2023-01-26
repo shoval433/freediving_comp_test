@@ -23,7 +23,7 @@ pipeline{
         stage("Building for all"){
             steps{
                 echo "===============================================Executing Building for all==============================================="
-                sh "docker-compose build "
+                sh "docker-compose build --no-cache "
                 sh "docker-compose up -d"
             }
         }
