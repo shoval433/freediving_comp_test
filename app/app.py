@@ -65,6 +65,7 @@ def update_comp(comp):
 
 @app.delete('/<comp>/<id>/')
 def del_diver(comp,id):
+    comp=str(comp).lower
     comp_db=db.get_database(comp)
     myquery = { "_id": id }
     if not list(comp_db.diver.find({"_id": id})) :
@@ -75,12 +76,14 @@ def del_diver(comp,id):
 
 @app.get('/drop/<comp>/')
 def drop_data(comp):
+    comp=str(comp).lower
     comp_db=db.get_database(comp)
     comp_db.diver.drop()
     return "drop "+ str(comp)
     
 @app.post('/<comp>/')
 def add_comp(comp):
+    comp=str(comp).lower
     _id = request.form.get('_id')
     firstName = request.form.get('firstName')
     lastName = request.form.get('lastName')
@@ -118,21 +121,25 @@ def add_comp(comp):
 
 @app.get('/<comp>/id/<id>/')
 def get_diver_id(comp,id):
+    comp=str(comp).lower
     comp_db=db.get_database(comp)
     return json_util.dumps(list(comp_db.diver.find({"_id":id})))
 
 @app.get('/<comp>/discipline/<discipline>/')
 def get_discipline(comp,discipline):
+    comp=str(comp).lower
     comp_db=db.get_database(comp)
     return json_util.dumps(list(comp_db.diver.find({"discipline":discipline})))
 
 @app.get('/<comp>/gender/<gender>')
 def get_gender(comp,gender):
+    comp=str(comp).lower
     comp_db=db.get_database(comp)
     return json_util.dumps(list(comp_db.diver.find({"gender":gender})))
 
 @app.get('/<comp>/nr/<NR>/')
 def get_NR(comp,NR):
+    comp=str(comp).lower
     comp_db=db.get_database(comp)
     return json_util.dumps(list(comp_db.diver.find({"NR":NR})))
 @app.get('/<comp>/country/<country>/')
@@ -144,6 +151,7 @@ def get_country(comp,country):
 
 @app.route('/check/')
 def get_check():
+    
     # comp_db=db.get_database(comp)
     # comp_db.user.insert_one({"name":"shoval"})
     return json_util.dumps(list(db.list_database_names()))
