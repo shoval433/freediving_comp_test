@@ -78,7 +78,7 @@ def drop_data(comp):
     comp_db=db.get_database(comp)
     comp_db.diver.drop()
     return "drop "+ str(comp)
-    #
+    
 @app.post('/<comp>/')
 def add_comp(comp):
     _id = request.form.get('_id')
