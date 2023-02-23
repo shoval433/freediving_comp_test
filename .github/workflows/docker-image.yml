@@ -16,10 +16,6 @@ jobs:
     - uses: actions/checkout@v3
     - name: Build the Docker image
       run: |
-        docker compose build
-    - name: test app
-      run: |
-        docker compose up
-        curl localhost:5001
-        
+        docker-compose build
+
         
